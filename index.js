@@ -43,6 +43,14 @@ app.post("/adicionar",(req,res) => {
     });
 })
 
+app.get("/excluir", (req, res) => {
+    axios.get(url + "aluno/" + req.params.ra).then((response) => {
+        res.render("../views/exclusao", {
+            aluno: response.data
+        })
+    })
+});
+
 app.get("/editar/:ra", (req,res)=>{
     axios.get(url + "aluno/" + req.params.ra).then((response) => {
         res.render("../views/index", {
