@@ -7,7 +7,7 @@
     <title>SIGA 2.0</title>
 </head>
 <body>
-    <h1>Excluir Aluno</h1>
+    <h1>Exibir Aluno</h1>
     <button><a href="/">Voltar a Página Inicial</a></button>
     <p>Nome do aluno</p>
     <p><%= aluno.nome %></p>
@@ -18,6 +18,7 @@
     <p>Data de nascimento</p>
     <p><%= aluno.data_de_nascimento %></p>
 
-    <p>Você realmente deseja excluir esse aluno?</p>
-    <button><a href="/excluirAluno/<%= aluno.RA %>">Confirmar exclusão</a></button>
+    <button><a href="/editar/<%= aluno.RA %>">Editar</a></button>
+    <button><a href="/excluir/<%= aluno.RA %>">Excluir</a></button>
+    
 </html>

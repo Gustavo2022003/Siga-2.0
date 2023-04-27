@@ -1,68 +1,89 @@
 const express = require("express");
+const bodyParser = require("body-parser")
 const axios = require("axios");
 
 const port = 8000;
-const url = "https://857b70dc-c777-4af7-bd0b-592ca611d7f7.mock.pstmn.io/";
+const url = "https://857b70dc-c777-4af7-bd0b-592ca611d7f7.mock.pstmn.io";
 
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true}))
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    axios.get(url + "alunos").then((response) => {
+    axios.get(url + "/alunos").then((response) => {
         res.render("../views/index", {
             aluno: response.data
         });
+    }, (error) =>{
+        res.render("../views/erro")
     });
 });
 
 app.get("/exibirAluno/:ra", (req, res) =>{
-    axios.get(url + "aluno/" + req.params.ra).then((response) => {
-        res.render("../views/index", {
+    axios.get(url + "/aluno/" + req.params.ra).then((response) => {
+        res.render("../views/exibir", {
             aluno: response.data
         })
-    })
-})
-
-app.get("/cadastroAluno", (req,res) => {
-    res.render("../views/");
-})
-
-app.post("/adicionar",(req,res) => {
-    axios.post(url + "aluno",{
-        nome: "Avalone", 
-        RA: "432567", 
-        data_de_nascimento: "04/03/2004"
-    }).then((response) =>{
-        console.log('FOI');
-        res.send(response.data)
     }, (error) =>{
-        res.send("Erro")
-        console.log(error)
+        res.render("../views/erro")
     });
 })
 
-app.get("/excluir", (req, res) => {
-    axios.get(url + "aluno/" + req.params.ra).then((response) => {
+app.get("/cadastroAluno", (req,res) => {
+    res.render("../views/adicionar");
+})
+
+app.post("/adicionarAluno",(req,res) => {
+    axios.post(url + "/aluno", req.body).then((response) =>{
+        res.render("../views/sucesso", {
+            aluno: response.data
+            
+        })
+    }, (error) =>{
+        res.render("../views/erro")
+    });
+})
+
+app.get("/excluir/:ra", (req, res) => {
+    axios.get(url + "/aluno/" + req.params.ra).then((response) => {
         res.render("../views/exclusao", {
             aluno: response.data
         })
-    })
+    }, (error) =>{
+        res.render("../views/erro")
+    });
+});
+
+app.get("/excluirAluno/:ra", (req, res) => {
+    axios.delete(url + "/aluno/" + req.params.ra).then((response) => {
+        res.render("../views/sucesso", {
+            resposta: response.data
+        })
+    }, (error) =>{
+        res.render("../views/erro")
+    });
 });
 
 app.get("/editar/:ra", (req,res)=>{
-    axios.get(url + "aluno/" + req.params.ra).then((response) => {
-        res.render("../views/index", {
+    axios.get(url + "/aluno/" + req.params.ra).then((response) => {
+        res.render("../views/editar", {
             aluno: response.data
         })
-    })
+    }, (error) =>{
+        res.render("../views/erro")
+    });
 })
 
-app.patch("/editarAluno/:ra", (req,res)=>{
-    axios.patch(url + "aluno/" + req.params.ra, {"nome": "Teste", "data_de_nascimento": "19/01/2003"}).then((response) => {
-        res.send("Sucesso")
-    })
+app.post("/editarAluno/:ra", (req,res)=>{
+    axios.patch(url + "/aluno/" + req.params.ra, req.body).then((response) => {
+        res.render("../views/sucesso", {
+            resposta: response.data
+        })
+    }, (error) =>{
+        res.render("../views/erro")
+    });
 })
 
 app.listen(port, () => {

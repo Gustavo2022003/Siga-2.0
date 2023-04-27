@@ -8,32 +8,24 @@
 </head>
 <body>
     <h1>Home page</h1>
-    <a href="./excluir">TESTAR</a>
+    <button><a href="./cadastroAluno">Adicionar Aluno</a></button>
     <div style="width: 100%;">
         <table border=1 style="width: 80%;">
             <tr>
                 <th>R.A</th>
                 <th>Nome do Aluno</th>
-                <th colspan="2">Opções</th>
+                <th colspan="3">Opções</th>
             </tr>
             <% aluno.forEach(function(aluno){ %>
                 <tr>
                     <td><%= aluno.RA %> </td> 
                     <td><%= aluno.nome %> </td>
-                    <td><button onclick="Excluir('<%= aluno.nome %>','<%= aluno.RA %>')">Excluir</button></td>
-                    <td><button onclick="Editar('<%= aluno.nome %>','<%= aluno.RA %>')">Editar</button></td>
+                    <td><button><a href="./exibirAluno/<%= aluno.RA %>">Exibir</a></button></td>
+                    <td><button><a href="./editar/<%= aluno.RA %>">Alterar</a></button></td>
+                    <td><button><a href="./excluir/<%= aluno.RA %>">Excluir</a></button></td>
                 </tr>
             <% })%>
         </table>
     </div>
-
-    <script>
-        function Excluir(nome, RA){
-            window.confirm(`Realmente deseja excluir o aluno ${nome} do RA: ${RA}`);
-        }
-        function Editar(nome, RA){
-            Editar('Redirecionando');
-        }
-    </script>
 </body>
 </html>

@@ -7,15 +7,14 @@
     <title>SIGA 2.0</title>
 </head>
 <body>
-    <h1>Adicionar Aluno</h1>
+    <h1>Editar Aluno</h1>
     <button><a href="/">Voltar a Página Inicial</a></button>
-    <form action="/adicionarAluno" method="post">
+    <form action="/editarAluno/<%= aluno.RA %>" method="post">
         <p>Nome do aluno:</p>
-        <input type="text" placeholder="Digite o nome do aluno" name="nome">
-        <p>RA:</p>
-        <input type="text" placeholder="Digite o RA do aluno" name="RA">
+        <input type="text" placeholder="Digite o nome do aluno" name="nome" value="<%= aluno.nome %>">
         <p>Data de nascimento:</p>
-        <input type="date" name="data_de_nascimento">
+        <input type="date" placeholder="dd/mm/aaaa" name="data_de_nascimento" value="<%= aluno.data_de_nascimento %>">
         <button type="submit">Salvar</button>
     </form>
-</htl>
+</body>
+</html>
