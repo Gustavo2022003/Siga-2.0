@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>SIGA 2.0</title>
 </head>
 <body>
-    <h1>Home page</h1>
-    <button><a href="./cadastroAluno">Adicionar Aluno</a></button>
+    <h1>Alunos Cadastrados</h1>
+    <div style="padding: 1% 1%;">
+        <a class="btn btn-primary btn-lg active" href="./cadastroAluno">Adicionar Aluno</a>
+    </div>
     <div style="width: 100%;">
-        <table border=1 style="width: 80%;">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
             <tr>
                 <th>R.A</th>
                 <th>Nome do Aluno</th>
-                <th colspan="3">Opções</th>
+                <th>Opções</th>
             </tr>
+            </thead>
             <% aluno.forEach(function(aluno){ %>
                 <tr>
-                    <td><%= aluno.RA %> </td> 
+                    <th scope="col"><%= aluno.RA %> </th> 
                     <td><%= aluno.nome %> </td>
-                    <td><button><a href="./exibirAluno/<%= aluno.RA %>">Exibir</a></button></td>
-                    <td><button><a href="./editar/<%= aluno.RA %>">Alterar</a></button></td>
-                    <td><button><a href="./excluir/<%= aluno.RA %>">Excluir</a></button></td>
+                    <td>
+                    <a class="btn btn-outline-primary" href="./exibirAluno/<%= aluno.RA %>">Exibir</a>
+                    <a class="btn btn-outline-info" href="./editar/<%= aluno.RA %>">Alterar</a>
+                    <a class="btn btn-outline-danger" href="./excluir/<%= aluno.RA %>">Excluir</a>
+                    </td>
                 </tr>
             <% })%>
         </table>
